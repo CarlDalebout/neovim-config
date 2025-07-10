@@ -152,6 +152,12 @@ vim.o.splitbelow = true
 vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
+-- Tab Configuration
+vim.o.tabstop = 4 -- A TAB character looks like 4 spaces
+vim.o.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
+vim.o.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
+vim.o.shiftwidth = 4 -- Number of spaces inserted when indenting
+
 -- Preview substitutions live, as you type!
 vim.o.inccommand = 'split'
 
@@ -184,11 +190,32 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
--- TIP: Disable arrow keys in normal mode
--- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
--- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
--- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
--- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+vim.keymap.set('n', 'h', '|')
+vim.keymap.set('n', 'j', '<left>')
+vim.keymap.set('n', 'k', '<down>')
+vim.keymap.set('n', 'l', '<up>')
+vim.keymap.set('n', ';', '<right>')
+
+-- TIP: Disable arrow keys
+vim.keymap.set('n', '<left>', '<cmd>echo "Use j to move!!"<CR>')
+vim.keymap.set('n', '<right>', '<cmd>echo "Use k to move!!"<CR>')
+vim.keymap.set('n', '<up>', '<cmd>echo "Use l to move!!"<CR>')
+vim.keymap.set('n', '<down>', '<cmd>echo "Use ; to move!!"<CR>')
+
+vim.keymap.set('v', '<left>', '<cmd>echo "Use j to move!!"<CR>')
+vim.keymap.set('v', '<right>', '<cmd>echo "Use k to move!!"<CR>')
+vim.keymap.set('v', '<up>', '<cmd>echo "Use l to move!!"<CR>')
+vim.keymap.set('v', '<down>', '<cmd>echo "Use ; to move!!"<CR>')
+
+vim.keymap.set('i', '<left>', '<cmd>echo "Use j to move!!"<CR>')
+vim.keymap.set('i', '<right>', '<cmd>echo "Use k to move!!"<CR>')
+vim.keymap.set('i', '<up>', '<cmd>echo "Use l to move!!"<CR>')
+vim.keymap.set('i', '<down>', '<cmd>echo "Use ; to move!!"<CR>')
+
+vim.keymap.set('i', '<M-j>', '<Left>', { desc = 'Move the cursor left' })
+vim.keymap.set('i', '<M-k>', '<Down>', { desc = 'Move the cursor up' })
+vim.keymap.set('i', '<M-l>', '<Up>', { desc = 'Move the cursor down' })
+vim.keymap.set('i', '<M-;>', '<Right>', { desc = 'Move the cursor right' })
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
@@ -200,10 +227,10 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
--- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
--- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
--- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
--- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
+vim.keymap.set('n', '<C-S-h>', '<C-w>H', { desc = 'Move window to the left' })
+vim.keymap.set('n', '<C-S-l>', '<C-w>L', { desc = 'Move window to the right' })
+vim.keymap.set('n', '<C-S-j>', '<C-w>J', { desc = 'Move window to the lower' })
+vim.keymap.set('n', '<C-S-k>', '<C-w>K', { desc = 'Move window to the upper' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -218,6 +245,18 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.hl.on_yank()
   end,
 })
+
+--" " 'Copy to clipboard'
+vim.keymap.set('v', '<leader>y', '+y', { desc = 'Copy to clipboard' })
+vim.keymap.set('n', '<leader>Y', '+yg_', { desc = 'Copy to clipboard' })
+vim.keymap.set('n', '<leader>y', '+y', { desc = 'Copy to clipboard' })
+vim.keymap.set('n', '<leader>yy', '+yy', { desc = 'Copy to clipboard' })
+
+--" " 'Paste from clipboard'
+vim.keymap.set('n', '<leader>p', '+p', { desc = 'Paste from clipboard' })
+vim.keymap.set('n', '<leader>P', '+P', { desc = 'Paste from clipboard' })
+vim.keymap.set('v', '<leader>p', '+p', { desc = 'Paste from clipboard' })
+vim.keymap.set('v', '<leader>P', '+P', { desc = 'Paste from clipboard' })
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
@@ -626,6 +665,15 @@ require('lazy').setup({
         end,
       })
 
+      vim.keymap.set('n', '<leader>tn', function() --toggle relative vs absolute line numbers
+        if vim.wo.relativenumber then
+          vim.wo.relativenumber = false
+          vim.wo.number = true
+        else
+          vim.wo.relativenumber = true
+        end
+      end, { desc = '[T]oggle [N]umbers setting' })
+
       -- Diagnostic Config
       -- See :help vim.diagnostic.Opts
       vim.diagnostic.config {
@@ -894,7 +942,7 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      vim.cmd.colorscheme 'unokai'
     end,
   },
 
