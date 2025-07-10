@@ -190,11 +190,17 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
-vim.keymap.set('n', 'h', '|')
-vim.keymap.set('n', 'j', '<left>')
-vim.keymap.set('n', 'k', '<down>')
-vim.keymap.set('n', 'l', '<up>')
-vim.keymap.set('n', ';', '<right>')
+vim.keymap.set('n', 'h', '')
+vim.keymap.set('n', 'j', '<Left>')
+vim.keymap.set('n', 'k', '<Up>')
+vim.keymap.set('n', 'l', '<Down>')
+vim.keymap.set('n', ';', '<Right>')
+
+vim.keymap.set('v', 'h', '')
+vim.keymap.set('v', 'j', '<Left>')
+vim.keymap.set('v', 'k', '<Up>')
+vim.keymap.set('v', 'l', '<Down>')
+vim.keymap.set('v', ';', '<Right>')
 
 -- TIP: Disable arrow keys
 vim.keymap.set('n', '<left>', '<cmd>echo "Use j to move!!"<CR>')
@@ -213,24 +219,24 @@ vim.keymap.set('i', '<up>', '<cmd>echo "Use l to move!!"<CR>')
 vim.keymap.set('i', '<down>', '<cmd>echo "Use ; to move!!"<CR>')
 
 vim.keymap.set('i', '<M-j>', '<Left>', { desc = 'Move the cursor left' })
-vim.keymap.set('i', '<M-k>', '<Down>', { desc = 'Move the cursor up' })
-vim.keymap.set('i', '<M-l>', '<Up>', { desc = 'Move the cursor down' })
+vim.keymap.set('i', '<M-k>', '<Up>', { desc = 'Move the cursor up' })
+vim.keymap.set('i', '<M-l>', '<Down>', { desc = 'Move the cursor down' })
 vim.keymap.set('i', '<M-;>', '<Right>', { desc = 'Move the cursor right' })
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<C-;>', '<C-w><C-;>', { desc = 'Move focus to the upper window' })
 
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
-vim.keymap.set('n', '<C-S-h>', '<C-w>H', { desc = 'Move window to the left' })
-vim.keymap.set('n', '<C-S-l>', '<C-w>L', { desc = 'Move window to the right' })
-vim.keymap.set('n', '<C-S-j>', '<C-w>J', { desc = 'Move window to the lower' })
-vim.keymap.set('n', '<C-S-k>', '<C-w>K', { desc = 'Move window to the upper' })
+vim.keymap.set('n', '<C-S-j>', '<C-w>j', { desc = 'Move window to the left' })
+vim.keymap.set('n', '<C-S-k>', '<C-w>k', { desc = 'Move window to the right' })
+vim.keymap.set('n', '<C-S-l>', '<C-w>l', { desc = 'Move window to the lower' })
+vim.keymap.set('n', '<C-S-;>', '<C-w>;', { desc = 'Move window to the upper' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
