@@ -1,1 +1,1 @@
-vim.keymap.set('n', '<leader>pv', '<cmd>Ex<CR>')
+vim.keymap.set('n', '<leader><Esc>', '<cmd>Ex<CR>', { desc = 'run the :Ex command' })
