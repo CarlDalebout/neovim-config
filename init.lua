@@ -1,5 +1,4 @@
 --[[
-
 =====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
 =====================================================================
@@ -190,6 +189,9 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
+-- Keybind to enter File Explorer
+vim.keymap.set('n', '<leader><Esc>', '<cmd>Ex<CR>', { desc = 'run the :Ex command' })
+
 -- TIP: Disable arrow keys
 vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
 vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
@@ -211,6 +213,10 @@ vim.keymap.set('i', '<M-k>', '<Up>', { desc = 'Move the cursor up' })
 vim.keymap.set('i', '<M-j>', '<Down>', { desc = 'Move the cursor down' })
 vim.keymap.set('i', '<M-l>', '<Right>', { desc = 'Move the cursor right' })
 
+-- Keybind to exit insert mode
+vim.keymap.set('i', 'jj', '<C-[>', { desc = '<esc> insert mode' })
+vim.keymap.set('i', 'jk', '<C-[>', { desc = '<esc> insert mode' })
+
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
 --
@@ -228,7 +234,6 @@ vim.keymap.set('n', '<C-S-k>', '<C-w>k', { desc = 'Move window to the upper' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
-
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.hl.on_yank()`
@@ -668,6 +673,8 @@ require('lazy').setup({
         end
       end, { desc = '[T]oggle [N]umbers setting' })
 
+      vim.keymap.set('n', '<leader>tl', '<cmd>IBLToggle<CR>', { desc = '[T]oggle [Line] Indentation' })
+
       -- Diagnostic Config
       -- See :help vim.diagnostic.Opts
       vim.diagnostic.config {
@@ -1016,7 +1023,7 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
+  require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
@@ -1024,7 +1031,6 @@ require('lazy').setup({
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
-  --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   -- { import = 'custom.plugins' },
   --
