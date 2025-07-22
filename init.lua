@@ -52,8 +52,7 @@ Kickstart Guide:
 
     (If you already know the Neovim basics, you can skip this step.)
 
-  Once you've completed that, you can continue working through **AND READING** the rest
-  of the kickstart init.lua.
+  Once you've completed that, you can continue working through **AND READING** the res  of the kickstart init.lua.
 
   Next, run AND READ `:help`.
     This will open up a help window with some basic information
@@ -190,7 +189,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- Keybind to enter File Explorer
-vim.keymap.set('n', '<leader><Esc>', '<cmd>Ex<CR>', { desc = 'run the :Ex command' })
+vim.keymap.set('n', '<leader>fe', '<cmd>Ex<CR>', { desc = 'Opens [F]ile [E]xplore' })
 
 -- TIP: Disable arrow keys
 vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -675,6 +674,14 @@ require('lazy').setup({
 
       vim.keymap.set('n', '<leader>tl', '<cmd>IBLToggle<CR>', { desc = '[T]oggle [Line] Indentation' })
 
+      -- vim.keymap.set('n', '<leader>tw', function()
+      --   if vim.wo.wrap then
+      --     '<cmd>set nowrap<CR>'
+      --   else
+      --     '<cmd>set warp<CR>'
+      --   end
+      -- end, { desc = '[T]oggle text [W]rap' })
+
       -- Diagnostic Config
       -- See :help vim.diagnostic.Opts
       vim.diagnostic.config {
@@ -791,7 +798,7 @@ require('lazy').setup({
     cmd = { 'ConformInfo' },
     keys = {
       {
-        '<leader>f',
+        '<leader>ff',
         function()
           require('conform').format { async = true, lsp_format = 'fallback' }
         end,
@@ -1028,7 +1035,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
-
+  require 'custom.plugins.harpoon',
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
