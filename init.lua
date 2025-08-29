@@ -164,6 +164,11 @@ vim.o.scrolloff = 10
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -239,7 +244,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
-    vim.hl.on_yank()
+    vim.highlight.on_yank()
   end,
 })
 
@@ -503,7 +508,7 @@ require('lazy').setup({
     -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
     -- used for completion, annotations and signatures of Neovim apis
     'folke/lazydev.nvim',
-    ft = 'lua',
+    ft = { 'lua', 'python', 'csharp' },
     opts = {
       library = {
         -- Load luvit types when the `vim.uv` word is found
@@ -511,6 +516,7 @@ require('lazy').setup({
       },
     },
   },
+
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
@@ -1024,38 +1030,38 @@ require('lazy').setup({
     end,
   },
 
-  {
-    'rmehri01/onenord.nvim',
-    config = function()
-      require('onenord').setup {
-        theme = 'dark', -- "dark" or "light". Alternatively, remove the option and set vim.o.background instead
-        borders = true, -- Split window borders
-        fade_nc = false, -- Fade non-current windows, making them more distinguishable
-        -- Style that is applied to various groups: see `highlight-args` for options
-        styles = {
-          comments = 'NONE',
-          strings = 'NONE',
-          keywords = 'NONE',
-          functions = 'NONE',
-          variables = 'NONE',
-          diagnostics = 'underline',
-        },
-        disable = {
-          background = true,
-          float_background = false, -- Disable setting the background color for floating windows
-          cursorline = false, -- Disable the cursorline
-          eob_lines = true, -- Hide the end-of-buffer lines
-        },
-        -- Inverse highlight for different groups
-        inverse = {
-          match_paren = false,
-        },
-        custom_highlights = {}, -- Overwrite default highlight groups
-        custom_colors = {}, -- Overwrite default colors
-      }
-      vim.cmd.colorscheme 'onenord.nvim'
-    end,
-  },
+  -- {
+  --   'rmehri01/onenord.nvim',
+  --   config = function()
+  --     require('onenord').setup {
+  --       theme = 'dark', -- "dark" or "light". Alternatively, remove the option and set vim.o.background instead
+  --       borders = true, -- Split window borders
+  --       fade_nc = false, -- Fade non-current windows, making them more distinguishable
+  --       -- Style that is applied to various groups: see `highlight-args` for options
+  --       styles = {
+  --         comments = 'NONE',
+  --         strings = 'NONE',
+  --         keywords = 'NONE',
+  --         functions = 'NONE',
+  --         variables = 'NONE',
+  --         diagnostics = 'underline',
+  --       },
+  --       disable = {
+  --         background = true,
+  --         float_background = false, -- Disable setting the background color for floating windows
+  --         cursorline = false, -- Disable the cursorline
+  --         eob_lines = true, -- Hide the end-of-buffer lines
+  --       },
+  --       -- Inverse highlight for different groups
+  --       inverse = {
+  --         match_paren = false,
+  --       },
+  --       custom_highlights = {}, -- Overwrite default highlight groups
+  --       custom_colors = {}, -- Overwrite default colors
+  --     }
+  --     vim.cmd.colorscheme 'onenord.nvim'
+  --   end,
+  -- },
 
   {
     'rebelot/kanagawa.nvim',
@@ -1081,7 +1087,7 @@ require('lazy').setup({
           light = 'lotus',
         },
       }
-      -- vim.cmd.colorscheme 'kanagawa-dragon'
+      vim.cmd.colorscheme 'kanagawa-wave'
     end,
     build = function()
       vim.cmd 'KanagawaCompile'
