@@ -1,5 +1,10 @@
--- [[ Basic Keymaps ]]
---  See `:help vim.keymap.set()`
+-- Set <space> as the leader key
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+-- Keybind to exit insert mode
+vim.keymap.set('i', 'jj', '<C-[>', { desc = '<esc> insert mode' })
+vim.keymap.set('i', 'jk', '<C-[>', { desc = '<esc> insert mode' })
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -29,19 +34,17 @@ vim.keymap.set('i', '<right>', '<cmd>echo "Use l to move!!"<CR>')
 vim.keymap.set('i', '<up>', '<cmd>echo "Use k to move!!"<CR>')
 vim.keymap.set('i', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
+-- Adding the ability to move while in insert mode
 vim.keymap.set('i', '<M-h>', '<Left>', { desc = 'Move the cursor left' })
 vim.keymap.set('i', '<M-k>', '<Up>', { desc = 'Move the cursor up' })
 vim.keymap.set('i', '<M-j>', '<Down>', { desc = 'Move the cursor down' })
 vim.keymap.set('i', '<M-l>', '<Right>', { desc = 'Move the cursor right' })
 
+-- Large movement keybinds
+vim.keymap.set({ 'n', 'v' }, 'K', '{', { desc = 'move up a paragraph' })
+vim.keymap.set({ 'n', 'v' }, 'J', '}', { desc = 'move down a paragraph' })
 vim.keymap.set('n', 'H', '^', { desc = 'move to first char in the row' })
 vim.keymap.set('n', 'L', '$', { desc = 'move to last char in the row' })
-vim.keymap.set({ 'n', 'v' }, 'J', '}')
-vim.keymap.set({ 'n', 'v' }, 'K', '{')
-
--- Keybind to exit insert mode
-vim.keymap.set('i', 'jj', '<C-[>', { desc = '<esc> insert mode' })
-vim.keymap.set('i', 'jk', '<C-[>', { desc = '<esc> insert mode' })
 
 -- Keybinds to make split navigation easier.
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
@@ -55,19 +58,6 @@ vim.keymap.set('n', '<C-S-l>', '<C-w>l', { desc = 'Move window to the right' })
 vim.keymap.set('n', '<C-S-j>', '<C-w>j', { desc = 'Move window to the lower' })
 vim.keymap.set('n', '<C-S-k>', '<C-w>k', { desc = 'Move window to the upper' })
 
--- [[ Basic Autocommands ]]
---  See `:help lua-guide-autocommands`
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.hl.on_yank()`
-vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-})
-
 --" " 'Copy to clipboard'
 vim.keymap.set('v', '<leader>y', '+y', { desc = 'Copy to clipboard' })
 vim.keymap.set('n', '<leader>Y', '+yg_', { desc = 'Copy to clipboard' })
@@ -80,6 +70,7 @@ vim.keymap.set('n', '<leader>P', '+P', { desc = 'Paste from clipboard' })
 vim.keymap.set('v', '<leader>p', '+p', { desc = 'Paste from clipboard' })
 vim.keymap.set('v', '<leader>P', '+P', { desc = 'Paste from clipboard' })
 
+-- Toggles
 vim.keymap.set('n', '<leader>tn', function() --toggle relative vs absolute line numbers
   if vim.wo.relativenumber then
     vim.wo.relativenumber = false
@@ -88,3 +79,16 @@ vim.keymap.set('n', '<leader>tn', function() --toggle relative vs absolute line 
     vim.wo.relativenumber = true
   end
 end, { desc = '[T]oggle [N]umbers setting' })
+
+-- [[ Basic Autocommands ]]
+--  See `:help lua-guide-autocommands`
+-- Highlight when yanking (copying) text
+--  Try it with `yap` in normal mode
+--  See `:help vim.hl.on_yank()`
+vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Highlight when yanking (copying) text',
+  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})
